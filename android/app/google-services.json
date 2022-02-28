@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "225685323453",
+    "firebase_url": "https://teste-c476d-default-rtdb.firebaseio.com",
+    "project_id": "teste-c476d",
+    "storage_bucket": "teste-c476d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:225685323453:android:71d36c4c5455f1419cc1d4",
+        "android_client_info": {
+          "package_name": "br.com.fernando.intrumentacao.estufa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "225685323453-dedjdmjoch59biiru9ib2plgg1q3sd3e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAprQoHQI-ASq1QDqGQhyLr6AohGDmRqI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "225685323453-dedjdmjoch59biiru9ib2plgg1q3sd3e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
