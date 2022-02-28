@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:estufa/models/data_model.dart';
+import 'package:estufa/screens/home_screen.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -17,25 +19,28 @@ Future<void> main() async {
           'https://console.firebase.google.com/project/teste-c476d/storage/teste-c476d.appspot.com/files',
     ),
   );
-  DatabaseReference? dados;
   try {
-    dados = FirebaseDatabase.instance.ref('medicoes');
-    //dados.push().set({'teste': 123});
-    final a = await dados.get();
-    final b = a.value as Map;
-    b.forEach((key, value) {
-      print(key);
-      final Map vAux = value as Map;
-      vAux.forEach((key2, value2) {
-        print('-> $key2: $value2');
-      });
-    });
-    // Map c = b.values.elementAt(0);
-    // print(c['segundo']);
-    //dados.push();
-    //print(dados.orderByKey());
+    DatabaseReference medicoes = FirebaseDatabase.instance.ref('medicoes');
+    // medicoes.push().set(DataModel(
+    //       datahora: DateTime.now().toString(),
+    //       temperaturaDHT22: 39.89,
+    //       temperaturaAmbienteGY906: 39.95,
+    //       temperaturaObjetoGY906: 34.9,
+    //       temperaturaLM35: 39.8,
+    //       umidadeDHT22: 60.7,
+    //       umidadeHIH4000: 60.3,
+    //     ).getAsMap());
+    final listaDados = await medicoes.orderByKey().get();
+    final dados = listaDados.value as Map;
+    final List<DataModel> listaDadosDataModel = [];
+    dados.forEach(
+      (key, value) =>
+          listaDadosDataModel.add(DataModel.toDataModel(value as Map)),
+    );
+    for (DataModel dado in listaDadosDataModel) {
+      print(dado.toString());
+    }
   } catch (erro) {
-    dados = null;
     print(erro);
   }
   runApp(const MyApp());
@@ -44,7 +49,6 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -52,69 +56,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  Future<void> getDados() async {
-    DatabaseReference? dados;
-    try {
-      dados = FirebaseDatabase.instance.ref('teste-c476d-default-rtdb');
-      final a = dados.get();
-      //dados.push();
-      //print(dados.orderByKey());
-    } catch (erro) {
-      dados = null;
-      print('Deu ruim');
-    }
-    //print(dados!.key);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    //getDados();
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
+      home: const HomeScreen(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
