@@ -16,10 +16,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   List<String> sensores = const [
     'Temperatura DHT22',
-    'Temp. Ambiente GY-906',
-    'Temp. Objeto GY906',
     'Temperatura LM35',
-    'Umidade DHT21',
+    'Umidade DHT22',
     'Umidade HIH4000',
   ];
 
@@ -29,40 +27,32 @@ class _HomeScreenState extends State<HomeScreen> {
 
   List<DataModel> dados = [
     DataModel(
-      datahora: DateTime.now().toString(),
-      temperaturaDHT22: 39.89,
-      temperaturaAmbienteGY906: 39.95,
-      temperaturaObjetoGY906: 34.9,
-      temperaturaLM35: 39.8,
-      umidadeDHT22: 60.7,
-      umidadeHIH4000: 60.3,
+      datahora: '2022-03-31 09:50:46.658260',
+      temperaturaDHT22: 30.0,
+      temperaturaLM35: 30.0,
+      umidadeDHT22: 50.0,
+      umidadeHIH4000: 50.0,
     ),
     DataModel(
-      datahora: DateTime.now().toString(),
-      temperaturaDHT22: 40.0,
-      temperaturaAmbienteGY906: 40.1,
-      temperaturaObjetoGY906: 38.4,
-      temperaturaLM35: 39.9,
-      umidadeDHT22: 61.2,
-      umidadeHIH4000: 61.3,
+      datahora: '2022-03-31 09:51:46.658260',
+      temperaturaDHT22: 30.0,
+      temperaturaLM35: 30.0,
+      umidadeDHT22: 50.0,
+      umidadeHIH4000: 50.0,
     ),
     DataModel(
-      datahora: DateTime.now().toString(),
-      temperaturaDHT22: 40.1,
-      temperaturaAmbienteGY906: 40.15,
-      temperaturaObjetoGY906: 38.5,
-      temperaturaLM35: 40.8,
-      umidadeDHT22: 55.7,
-      umidadeHIH4000: 56.3,
+      datahora: '2022-03-31 09:52:46.658260',
+      temperaturaDHT22: 30.0,
+      temperaturaLM35: 30.0,
+      umidadeDHT22: 50.0,
+      umidadeHIH4000: 50.0,
     ),
     DataModel(
-      datahora: DateTime.now().toString(),
-      temperaturaDHT22: 39.89,
-      temperaturaAmbienteGY906: 39.95,
-      temperaturaObjetoGY906: 34.9,
-      temperaturaLM35: 39.8,
-      umidadeDHT22: 60.7,
-      umidadeHIH4000: 60.3,
+      datahora: '2022-03-31 09:53:46.658260',
+      temperaturaDHT22: 30.0,
+      temperaturaLM35: 30.0,
+      umidadeDHT22: 50.0,
+      umidadeHIH4000: 50.0,
     ),
   ];
 
@@ -148,19 +138,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             ' °C',
                       ),
                       LineMedicao(
-                        label: 'GY-906 (Ambiente)',
-                        dado: dados[0]
-                                .temperaturaAmbienteGY906
-                                .toStringAsFixed(1) +
-                            ' °C',
-                      ),
-                      LineMedicao(
-                        label: 'GY-906 (Objeto)',
-                        dado:
-                            dados[0].temperaturaObjetoGY906.toStringAsFixed(1) +
-                                ' °C',
-                      ),
-                      LineMedicao(
                         label: 'LM 35',
                         dado:
                             dados[0].temperaturaLM35.toStringAsFixed(1) + ' °C',
@@ -238,7 +215,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       GestureDetector(
                         onTap: () {
                           setState(() {
-                            numSensor = numSensor == 0 ? 5 : numSensor - 1;
+                            numSensor = numSensor == 0 ? 3 : numSensor - 1;
                           });
                         },
                         child: const Icon(
@@ -258,7 +235,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       GestureDetector(
                         onTap: () {
                           setState(() {
-                            numSensor = numSensor == 5 ? 0 : numSensor + 1;
+                            numSensor = numSensor == 3 ? 0 : numSensor + 1;
                           });
                         },
                         child: const Icon(
@@ -278,7 +255,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       tooltipBehavior: TooltipBehavior(enable: false),
                       series: <ChartSeries<DataModel, String>>[
                         LineSeries<DataModel, String>(
-                          dataSource: dados.sublist(0, 4),
+                          dataSource: dados.sublist(0, 4).reversed.toList(),
                           xValueMapper: (DataModel dado, _) =>
                               dado.datahora.substring(11, 16),
                           yValueMapper: (DataModel dado, _) {
@@ -286,14 +263,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               case 0:
                                 return dado.temperaturaDHT22;
                               case 1:
-                                return dado.temperaturaAmbienteGY906;
-                              case 2:
-                                return dado.temperaturaObjetoGY906;
-                              case 3:
                                 return dado.temperaturaLM35;
-                              case 4:
+                              case 2:
                                 return dado.umidadeDHT22;
-                              case 5:
+                              case 3:
                                 return dado.umidadeHIH4000;
                               default:
                                 return dado.temperaturaDHT22;
@@ -361,20 +334,6 @@ class _HomeScreenState extends State<HomeScreen> {
                               label: 'DHT22',
                               dado: dados[indice]
                                       .temperaturaDHT22
-                                      .toStringAsFixed(1) +
-                                  ' °C',
-                            ),
-                            LineMedicao(
-                              label: 'GY-906 (Ambiente)',
-                              dado: dados[indice]
-                                      .temperaturaAmbienteGY906
-                                      .toStringAsFixed(1) +
-                                  ' °C',
-                            ),
-                            LineMedicao(
-                              label: 'GY-906 (Objeto)',
-                              dado: dados[indice]
-                                      .temperaturaObjetoGY906
                                       .toStringAsFixed(1) +
                                   ' °C',
                             ),
