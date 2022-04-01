@@ -171,7 +171,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           'Última atulização foi em ${dados[0].datahora.replaceAll('-', '/').substring(0, 16)}',
                           style: const TextStyle(
                             decoration: TextDecoration.none,
-                            fontSize: 15,
+                            fontSize: 13,
                             color: Colors.white,
                           ),
                         ),
@@ -222,7 +222,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           'Última atulização foi em ${dados[0].datahora.replaceAll('-', '/').substring(0, 16)}',
                           style: const TextStyle(
                             decoration: TextDecoration.none,
-                            fontSize: 15,
+                            fontSize: 13,
                             color: Colors.white,
                           ),
                         ),
@@ -352,7 +352,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   body: Container(
                     margin: const EdgeInsets.all(8.0),
-                    height: MediaQuery.of(context).size.height * 0.75,
+                    height: MediaQuery.of(context).size.height * 0.73,
                     child: ListView.builder(
                       itemBuilder: (ctx, indice) => SizedBox(
                         child: Column(
@@ -448,7 +448,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   body: Container(
                     margin: const EdgeInsets.all(8.0),
-                    height: MediaQuery.of(context).size.height * 0.75,
+                    height: MediaQuery.of(context).size.height * 0.73,
                     child: ListView.builder(
                       itemBuilder: (ctx, indice) => SizedBox(
                         child: Column(
